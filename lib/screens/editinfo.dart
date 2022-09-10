@@ -12,6 +12,7 @@ import 'package:newsapp/helper/auth.dart';
 import 'package:newsapp/models/User.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/StateProvider.dart';
 import '../widgets/Signform.dart';
 
 class Edit_Info extends StatefulWidget {
@@ -29,15 +30,13 @@ class _Edit_InfoState extends State<Edit_Info> {
      print(user);
     super.initState();
   }
-  bool isload = false;
+ 
   String?  imgurl;
   File? b ;
    GlobalKey<FormState> form = GlobalKey();
   onsave()async{
   if(form.currentState!.validate()){
-  setState(() {
-    isload = true;
-  });
+   Provider.of<State_Provider>(context,listen:  false).changeIsLoad();
 form.currentState!.save();
 try {
   await Provider.of<Auth_provider>(context,listen: false).update(user, b, imgurl);
@@ -76,9 +75,7 @@ actions:<Widget>[
 });
 
 }
-setState(() {
-         isload = false;
-     });
+  Provider.of<State_Provider>(context,listen:  false).changeIsLoad();
  /*final imgpath  =  FirebaseStorage.instance.ref().child("imgs").child(FirebaseAuth.instance.currentUser!.uid+'.jpg');
 
 if(b!=null){
@@ -113,18 +110,19 @@ showDialog(context: context, builder: (ctx){
    actions: [
     ElevatedButton.icon(onPressed: (() async{
   final img= await imgpicker.pickImage(source: ImageSource.camera,imageQuality: 99,maxWidth: 200);
-setState(() {
-    b = File(img!.path);
-});
+  if(img!=null){
+   b= Provider.of<State_Provider>(context,listen:  false).changeImg(b, img);
+  }
+ 
   Navigator.of(ctx).pop();
  
     }), icon: Icon(Icons.camera), label:Text("Camera")),
      ElevatedButton.icon(onPressed: (() async{
      final img= await imgpicker.pickImage(source: ImageSource.gallery,imageQuality: 99,maxWidth: 200);
-  setState(() {
-      b = File(img!.path);
-  });
-    
+  if(img!=null){
+  b=  Provider.of<State_Provider>(context,listen:  false).changeImg(b, img);
+  }
+    Navigator.of(ctx).pop();
     }), icon: Icon(Icons.image), label:Text("gallry")),
    ],
 
@@ -146,9 +144,7 @@ showdate() {
             firstDate: DateTime(1980),
             lastDate: DateTime.now())
         .then((value) {
-      setState(() {
-        user!.birth = value;
-      });
+        user!.birth =    Provider.of<State_Provider>(context,listen:  false).changeDate( user!.birth, value);
     });
   }
   @override
@@ -178,11 +174,13 @@ showdate() {
                   Positioned(
                     top: constraints.maxHeight / 1.9,
                     right: constraints.maxWidth / 2 - 50.w,
-                    child: CircleAvatar(
+                    child: Consumer<State_Provider>(builder: ((context, provider, child) {
+                      return CircleAvatar(
                       backgroundImage: b!=null?FileImage(b!):NetworkImage(user!.imgurl!)as ImageProvider ,
                       radius: 55.r,
                       
-                    ),
+                    );
+                    })),
                   ),
                   Positioned(
                     
@@ -288,7 +286,9 @@ showdate() {
                 }
                  
                 },
-                    initialValue: user!.gender,
+                    initialValue:EasyLocalization.of(context)!.currentLocale==Locale('en','')? user!.gender
+                    
+                    :user!.gender== 'male'?'ذكر': 'انثى',
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(vertical: 15.h,horizontal: 20.w),
                         enabledBorder: OutlineInputBorder(
@@ -305,7 +305,9 @@ showdate() {
                         Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-         Text(DateFormat.yMMMMd().format(user!.birth!)),
+        Consumer<State_Provider>(builder: ((context, provider, child) {
+          return  Text(DateFormat.yMMMMd().format(user!.birth!));
+        })),
                   TextButton(
                       onPressed: () async{
                      await   showdate();
@@ -329,10 +331,12 @@ showdate() {
                         border: Border.all(color: Theme.of(context).primaryColor,width: 1.h),
                           borderRadius: BorderRadius.all(Radius.circular(50.r)),
                          ),
-                      child:isload? CircularProgressIndicator() :Text(
+                      child:Consumer<State_Provider>(builder: ((context, provider, child) {
+                        return provider. isload? CircularProgressIndicator() :Text(
                         "Upadte Profile",
                         style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 30.sp),
-                      ).tr(),
+                      ).tr();
+                      })),
                     ),
                   )
 

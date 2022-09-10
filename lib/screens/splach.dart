@@ -13,7 +13,7 @@ import 'package:newsapp/screens/verfiy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../nav.dart';
+import '../helper/nav.dart';
 
 class Splach extends StatefulWidget {
  

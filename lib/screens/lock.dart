@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_lock/flutter_screen_lock.dart';
-import 'package:newsapp/nav.dart';
+import 'package:newsapp/helper/nav.dart';
 import 'package:newsapp/screens/nav_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

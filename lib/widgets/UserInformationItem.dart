@@ -6,12 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:newsapp/helper/helper.dart';
 import 'package:newsapp/models/User.dart';
+import 'package:newsapp/providers/StateProvider.dart';
 import 'package:provider/provider.dart';
 
 import '../helper/auth.dart';
 import '../models/ex.dart';
-import '../nav.dart';
-import '../providers/logInProvider.dart';
+import '../helper/nav.dart';
+
 
 class UserInfoItem extends StatefulWidget {
   UserMdoel user;
@@ -79,7 +80,7 @@ Scaffold.of(context).showSnackBar(SnackBar(content: Text("pleace pick image")));
 return;
  }
 
-      Provider.of<LogIn_Provider>(context,listen:  false).changeIsLoad();
+      Provider.of<State_Provider>(context,listen:  false).changeIsLoad();
 
   try {
     final user = Provider.of<Auth_provider>(context,listen: false).user;
@@ -124,7 +125,7 @@ actions:<Widget>[
 
 );});
    }
-  Provider.of<LogIn_Provider>(context,listen:  false).changeIsLoad();
+  Provider.of<State_Provider>(context,listen:  false).changeIsLoad();
    
     }
  
@@ -305,7 +306,7 @@ Padding(
              SizedBox(height: 40.h,)
              
              ,
-              Consumer<LogIn_Provider>(builder: ((context, provider, child) {
+              Consumer<State_Provider>(builder: ((context, provider, child) {
             return   provider.isload? CircularProgressIndicator() :  InkWell(
                 onTap: ()async{
                 onSvaed();

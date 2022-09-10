@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:newsapp/nav.dart';
+import 'package:newsapp/helper/nav.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class App_Pass extends StatefulWidget {

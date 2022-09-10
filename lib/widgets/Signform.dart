@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:newsapp/nav.dart';
+import 'package:newsapp/helper/nav.dart';
+import 'package:newsapp/providers/StateProvider.dart';
 import '../helper/auth.dart';
 import '../helper/helper.dart';
 import '../models/User.dart';
@@ -16,7 +17,7 @@ import '../models/ex.dart';
 import '../providers/Main_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/logInProvider.dart';
+
 
 class Signform extends StatefulWidget {
   @override
@@ -69,6 +70,24 @@ setState(() {
 
 
  }
+ 
+showdialog(String txt){
+   showDialog(context: context, builder: (ctx){
+return AlertDialog(
+title: Text("Something Went wrong").tr(),
+content: Text(txt),
+actions:<Widget>[
+              FlatButton(
+                child: Text("Ok").tr(),
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+              )
+            ],
+
+);
+});
+}
   void onSvaed() async{
   /*  if(b==null){
  Scaffold.of(context).showSnackBar(SnackBar(content: Text("pleace pick image")));
@@ -78,7 +97,7 @@ return;
     if (form.currentState!.validate()) {
       form.currentState!.save();
 
-      Provider.of<LogIn_Provider>(context,listen:  false).changeIsLoad();
+      Provider.of<State_Provider>(context,listen:  false).changeIsLoad();
 
   try {
 
@@ -91,26 +110,15 @@ return;
     if(e.msg.contains("exists")){
 EasyLocalization.of(context)!.currentLocale==Locale('en','')?txt=e.msg:txt="الايميل موجود مسبقا\n حاول بإيميل أخر";
     }
-     showDialog(context: context, builder: (ctx){
-return AlertDialog(
-title: Text("Something Went wrong").tr(),
-content: Text("Something Wrong,Try agian later").tr(),
-actions:<Widget>[
-              FlatButton(
-                child: Text("Ok").tr(),
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                },
-              )
-            ],
+   showdialog(txt);
 
-);
-});
+   }on SocketException catch (e){
+    showdialog("No connection,Check Internt and try again".tr());
    }catch(e){
      showDialog(context: context, builder: (ctx){
 return AlertDialog(
 title: Text("Something Went wrong").tr(),
-content: Text(e.toString()),
+content: showdialog("Something Wrong,Try agian later".tr()),
 actions:<Widget>[
               FlatButton(
                 child: Text("Ok").tr(),
@@ -122,7 +130,7 @@ actions:<Widget>[
 
 );});
    }
-  Provider.of<LogIn_Provider>(context,listen:  false).changeIsLoad();
+  Provider.of<State_Provider>(context,listen:  false).changeIsLoad();
    
     }
  
@@ -342,7 +350,7 @@ actions:<Widget>[
                   )  
                 
      ,
-          Consumer<LogIn_Provider>(builder: ((context, provider, child) {
+          Consumer<State_Provider>(builder: ((context, provider, child) {
             return   provider.isload? CircularProgressIndicator() : InkWell(
                 onTap: ()async{
                 onSvaed();

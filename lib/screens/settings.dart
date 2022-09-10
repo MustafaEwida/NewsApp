@@ -13,7 +13,7 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../nav.dart';
+import '../helper/nav.dart';
 import '../widgets/settings_item.dart';
 import '../widgets/sttengs_groub.dart';
 

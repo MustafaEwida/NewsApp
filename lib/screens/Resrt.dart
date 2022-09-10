@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:newsapp/helper/auth.dart';
-import 'package:newsapp/nav.dart';
+import 'package:newsapp/helper/nav.dart';
 import 'package:provider/provider.dart';
 
 class Rest_screen extends StatefulWidget {

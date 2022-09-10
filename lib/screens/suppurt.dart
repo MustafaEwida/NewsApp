@@ -1,8 +1,10 @@
 
 
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 
 class Contact_screen extends StatelessWidget {
@@ -76,8 +78,47 @@ facebook(BuildContext context)async{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('con').tr(),),
-      body:  Container(
+      appBar: AppBar(title: Text('Support'),),
+      body:ListView(children: [
+          Container(
+            width: double.infinity,
+            height: 1.sh / 3.1,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Stack(children: [
+                  Container(
+                    width: constraints.maxWidth,
+                    height: constraints.maxHeight,
+                  ),
+                  Container(
+                    width: constraints.maxWidth,
+                    height: constraints.maxHeight / 1.2,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  
+                   Positioned(
+                    top: 30.h,
+                   left: 30.w,
+                    child:Text("Flutter Dev:\n Mustafa Ewida",style: TextStyle(fontSize: 20.sp,color: Colors.white),).tr())
+                  
+                  ,
+                  
+                  Positioned(
+                    top: constraints.maxHeight / 1.9,
+                    right: constraints.maxWidth / 2 - 55.w,
+                    child: CircleAvatar(
+                      backgroundImage:
+                     AssetImage('assets/images/me.jpg'),
+                      radius: 55.r,
+                    ),
+                  ),
+               
+                ]);
+              },
+            ),
+          ),
+        Container(
+             
         margin: EdgeInsets.symmetric(horizontal: 10.h,vertical: 30.w),
         child: Column(
           
@@ -89,34 +130,34 @@ children:  [
         color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(40.r)
     ),
+   
 
     
-    child: Text("For More Services Contect Us",style: TextStyle(color: Colors.white,fontSize: 20.sp),).tr(),),
-ListTile(
+    child: FittedBox(child: Text("For More Services Contect Us",style: TextStyle(color: Colors.white,fontSize: 20.sp),).tr()),),
+SizedBox(height: 20.h,),ListTile(
   onTap: () {
     Hotmail(context);
   },
   trailing: Icon(Icons.arrow_forward),
-  leading: Icon(Icons.email_outlined),title: Text('mustafa.20075@hotmail.com',style: textstyle,),),
+  leading: Icon(Icons.email_outlined,color: Colors.amber ,size: 40),title: FittedBox(child: Text('mustafa.20075@hotmail.com',style: textstyle,)),),
 ListTile(
   onTap: () {
     facebook(context);
   },
   trailing: Icon(Icons.arrow_forward),
-  leading: Icon(Icons.facebook),title: Text('مصطفى عويضه_MustafaEwida',style: textstyle),),
+  leading: Icon(Icons.facebook,color: Colors.blue ,size: 40),title: Text('مصطفى عويضه_MustafaEwida',style: textstyle),),
 ListTile(
   onTap: (() {
     whatsapp(context);
   }),
   trailing: Icon(Icons.arrow_forward),
-  leading: Icon(Icons.whatsapp),title: Text('00972594764197',style: textstyle),),
+  leading: Icon(Icons.whatsapp,color: Colors.green ,size: 40,),title: Text('+972594764197',style: textstyle),),
 ListTile(
   onTap: () {
     tele(context);
   },
   trailing: Icon(Icons.arrow_forward),
-  leading: Icon(Icons.telegram_outlined),title: Text('00972594764197',style: textstyle),),
-
+  leading: Icon(Icons.telegram_outlined ,color: Color.fromARGB(255, 60, 134, 173),size: 40,),title: Text('+972594764197',style: textstyle),),
 
 
 
@@ -130,6 +171,16 @@ ListTile(
           
         ),
       ),
+        
+        
+        
+             
+        ])
+      
+      
+      
+      
+      
       
     );
   }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:newsapp/nav.dart';
+import 'package:newsapp/helper/nav.dart';
 import 'package:newsapp/screens/nav_screen.dart';
 
 class verify extends StatefulWidget {

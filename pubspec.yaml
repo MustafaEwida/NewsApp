@@ -83,6 +83,7 @@ flutter:
     - assets/images/register.png
     - assets/images/preview.png
     - assets/images/dis.png
+    - assets/images/me.jpg
     - assets/lang/
 
   # An image asset can refer to one or more resolution-specific "variants", see

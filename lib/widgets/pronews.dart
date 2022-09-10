@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:newsapp/helper/helper.dart';
-import 'package:newsapp/nav.dart';
+import 'package:newsapp/helper/nav.dart';
 import 'package:newsapp/providers/Main_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:theme_provider/theme_provider.dart';

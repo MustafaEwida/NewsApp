@@ -1,14 +1,17 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:newsapp/providers/logInProvider.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import '../helper/auth.dart';
-import '../nav.dart';
+import '../helper/nav.dart';
 import 'package:provider/provider.dart';
 
 import '../models/ex.dart';
 import '../providers/Main_provider.dart';
+import '../providers/StateProvider.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
@@ -24,10 +27,30 @@ class _MyLoginState extends State<MyLogin> {
    TextEditingController p = TextEditingController();
    List info = ['',''];
 
+
+showdialog(String txt){
+   showDialog(context: context, builder: (ctx){
+return AlertDialog(
+title: Text("Something Went wrong").tr(),
+content: Text(txt),
+actions:<Widget>[
+              FlatButton(
+                child: Text("Ok").tr(),
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+              )
+            ],
+
+);
+});
+}
+
+
  void onSvaed() async{
     if (form.currentState!.validate()) {
       form.currentState!.save();
-        Provider.of<LogIn_Provider>(context,listen:  false).changeIsLoad();
+        Provider.of<State_Provider>(context,listen:  false).changeIsLoad();
   try {
    await Provider.of<Auth_provider>(context,listen: false).sign_in(info[0], info[1]);
    final b = await SharedPreferences.getInstance();
@@ -45,40 +68,18 @@ EasyLocalization.of(context)!.currentLocale==Locale('en','')?txt=e.msg:txt="ال
     }else if(e.msg.contains("password")){
 EasyLocalization.of(context)!.currentLocale==Locale('en','')?txt=e.msg:txt="كلمة مرور خاطئة";
     }
-     showDialog(context: context, builder: (ctx){
-return AlertDialog(
-title: Text("Something Went wrong").tr(),
-content: Text(txt),
-actions:<Widget>[
-              FlatButton(
-                child: Text("Ok").tr(),
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                },
-              )
-            ],
+     showdialog(txt);
+   }on SocketException catch (e){
+    showdialog("No connection,Check Internt and try again".tr());
+   }
+   
+   
+   catch(e){
 
-);
-});
-   }catch(e){
-
- showDialog(context: context, builder: (ctx){
-return AlertDialog(
-title: Text("Something Went wrong").tr(),
-content: Text("Something Wrong,Try agian later").tr(),
-actions:<Widget>[
-              FlatButton(
-                child: Text("Ok").tr(),
-                onPressed: () {
-                  Navigator.of(ctx).pop();
-                },
-              )
-            ],
-
-);});
+ showdialog("Something Wrong,Try agian later".tr());
 
    }
-     Provider.of<LogIn_Provider>(context,listen:  false).changeIsLoad();
+     Provider.of<State_Provider>(context,listen:  false).changeIsLoad();
      /*setState(() {
            isload =false;
          });*/
@@ -191,6 +192,10 @@ actions:<Widget>[
                              borderSide: BorderSide(color: Theme.of(context).primaryColor,width: 1.w),
                           borderRadius: BorderRadius.circular(50),
                         ),
+                        errorBorder: OutlineInputBorder(
+                             borderSide: BorderSide(color: Theme.of(context).primaryColor,width: 1.w),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
                          enabledBorder: OutlineInputBorder(
                              borderSide: BorderSide(color: Theme.of(context).primaryColor,width: 1.w),
                           borderRadius: BorderRadius.circular(50),
@@ -230,7 +235,10 @@ actions:<Widget>[
                      
                       obscureText: true,
                       decoration: InputDecoration(
-                        
+                        errorBorder: OutlineInputBorder(
+                             borderSide: BorderSide(color: Theme.of(context).primaryColor,width: 1.w),
+                          borderRadius: BorderRadius.circular(50),
+                        ),
                           focusedBorder: OutlineInputBorder(
                              borderSide: BorderSide(color: Theme.of(context).primaryColor,width: 1.w),
                           borderRadius: BorderRadius.circular(50.r),
@@ -270,7 +278,7 @@ actions:<Widget>[
                           fontWeight: FontWeight.w700,
                         ),
                       ).tr(),
-                   Consumer<LogIn_Provider>(builder: ((context, provider, child) {
+                   Consumer<State_Provider>(builder: ((context, provider, child) {
                      return  provider.isload?CircularProgressIndicator() : 
                     
                     Container(

@@ -8,7 +8,7 @@ import 'package:newsapp/screens/splach.dart';
 import 'package:provider/provider.dart';
 import 'package:theme_provider/theme_provider.dart';
 
-import '../nav.dart';
+import '../helper/nav.dart';
 import '../providers/themeprovider.dart';
 import 'darktheme.dart';
 

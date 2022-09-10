@@ -4,7 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:newsapp/helper/auth.dart';
-import 'package:newsapp/providers/logInProvider.dart';
+import 'package:newsapp/providers/BottomBarProvider.dart';
+import 'package:newsapp/providers/StateProvider.dart';
+
 import 'package:newsapp/providers/themeprovider.dart';
 import 'package:newsapp/screens/Apppass.dart';
 import 'package:newsapp/screens/Home.dart';
@@ -19,7 +21,7 @@ import 'package:newsapp/screens/settings.dart';
 import 'package:newsapp/screens/splach.dart';
 import 'package:newsapp/screens/verfiy.dart';
 import 'package:theme_provider/theme_provider.dart';
-import './nav.dart';
+import 'helper/nav.dart';
 import './providers/Main_provider.dart';
 import './screens/add.dart';
 import './screens/loginscreen.dart';
@@ -29,7 +31,7 @@ import './screens/sign.dart';
 import './widgets/main_theme.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/contect_screen.dart';
+import 'screens/suppurt.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
@@ -46,7 +48,8 @@ void main() async {
           ChangeNotifierProvider(create: ((context) =>Auth_provider())),
           ChangeNotifierProvider(create: ((context) => Main_provider())),
           ChangeNotifierProvider(create: ((context) => Theme_Provider())),
-          ChangeNotifierProvider(create: ((context) => LogIn_Provider())),
+          ChangeNotifierProvider(create: ((context) => State_Provider())),
+          ChangeNotifierProvider(create: ((context) => BottomBar_Provider())),
         ],
         child: MyApp(),
       )));

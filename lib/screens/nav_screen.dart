@@ -11,7 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:newsapp/helper/auth.dart';
 import 'package:newsapp/helper/helper.dart';
-import 'package:newsapp/nav.dart';
+import 'package:newsapp/helper/nav.dart';
+import 'package:newsapp/providers/BottomBarProvider.dart';
 import 'package:newsapp/providers/Main_provider.dart';
 import 'package:newsapp/providers/themeprovider.dart';
 import 'package:newsapp/screens/fav_screen.dart';
@@ -59,7 +60,7 @@ Provider.of<Auth_provider>(context,listen: false).curruntuser();
   };
   @override
   Widget build(BuildContext context) {
-     Provider.of<Main_provider>(context);
+    final provider= Provider.of<BottomBar_Provider>(context);
    
     return 
     
@@ -67,7 +68,7 @@ Provider.of<Auth_provider>(context,listen: false).curruntuser();
     
     
     
-    Scaffold(
+     Scaffold(
    drawer: main_drwer(),
      appBar: AppBar(
      
@@ -87,12 +88,12 @@ color: Provider.of<Theme_Provider>(context)  .Themedata== Main_Theme.main_theme?
      ),),
      ),
      body:   Provider.of<Main_provider>(context).hasinternet==false?internet()
-      :screens[curruntindex][1],
+      :screens[provider.curruntIndex][1],
 
      bottomNavigationBar: BottomNavigationBar(
-      currentIndex: curruntindex,
+      currentIndex: Provider.of<BottomBar_Provider>(context,listen:  false).curruntIndex,
       
-      selectedIconTheme: IconThemeData(size: 30.sp) ,
+      selectedIconTheme: IconThemeData(size: 35.sp) ,
       elevation:Theme.of(context).bottomNavigationBarTheme.elevation ,
       type: Theme.of(context).bottomNavigationBarTheme.type,
        selectedItemColor: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
@@ -100,9 +101,7 @@ color: Provider.of<Theme_Provider>(context)  .Themedata== Main_Theme.main_theme?
        selectedLabelStyle: Theme.of(context).bottomNavigationBarTheme.selectedLabelStyle,
        backgroundColor:Theme.of(context).bottomNavigationBarTheme.backgroundColor ,
       onTap: (value) {
-      setState(() {
-          curruntindex = value;
-      });
+     Provider.of<BottomBar_Provider>(context,listen:  false).changeIndex(value);
       },
       
       items: [
@@ -117,6 +116,8 @@ color: Provider.of<Theme_Provider>(context)  .Themedata== Main_Theme.main_theme?
 
 
     );
+    
+    
     
   }
 }

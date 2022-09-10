@@ -28,6 +28,9 @@ try {
  }if (e.code == 'wrong-password'){
 
    throw MyEx("Wrong password provided for that user");
+ }else if(e.message!.contains("A network error")) {
+  print(e.message);
+  throw SocketException;
  }
  
 }
@@ -50,6 +53,8 @@ return cred;
 }on FirebaseAuthException catch(e){
  if (e.code == 'email-already-in-use'){
    throw MyEx("The account already exists for that email");
+ }else if(e.message!.contains("network error")) {
+  throw SocketException;
  }
  
 }
