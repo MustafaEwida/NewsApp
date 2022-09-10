@@ -1,0 +1,73 @@
+{
+    "log":"Welcome Back",
+    "email":"Email",
+    "pass":"Password",
+    "s":"Log In",
+    "create":"Sign Up",
+    "fp":"Forgot Password",
+    "cna":"Create New Account",
+    "pickimg":"Pick Image",
+    "chb":"Choose your birthDay",
+    "choose":"Choose",
+    "male":"male",
+    "female":"female",
+    "ca":"Create Account",
+    "EE":"Enter your email",
+    "E":"Email",
+    "P":"Password",
+    "cp":"Conform Password",
+    "Pick Image From:":"Pick Image From:",
+    "Camera":"Camera",
+    "gallry":"gallry",
+    "Rest Your Password":"Rest Your Password",
+    "Enter Your Email":"'Enter Your Email'",
+    "Reset":"Reset",
+    "Profile":"Profile",
+    "Add Post":"Add Post",
+    "Settings":"Settings",
+    "LogOut":"LogOut",
+    "name":"UserName",
+    "gender":"Gender",
+    "bd":"birthDate",
+    "pa":"Profile",
+    "add":"Add New Post",
+    "title":"Title",
+    "desc":"Description",
+    "imgurl":"Enter Url",
+    "ed":"Edit Account",
+    "Upadte Profile":"Upadte Profile",
+    "Choose":"Choose",
+    "Choose birth day":"Choose birth day",
+    "con":"Contect Us",
+    "For More Services Contect Us":"For More Services Contect Us"
+,"Verify Email":"Reset Request",
+"Go to your Email And Reset Password":"Go to your Email\n And Reset Password"
+ ,"Ok"  :"Ok",
+ "verify  email":"verify  email",
+ "send again":"send again",
+ "Cancel":"Cancel",
+  "Enter PIN code":"Enter PIN code",
+  "Conform password":"Conform password",
+  "Delete Password":"Delete Password",
+  "Something Went wrong":"Something Went wrong",
+  "Password cannat be empty":"Password cannat be empty",
+  "Password must be 4 numbers":"Password must be 4 numbers"
+,"You have not set password":"You have not set password"
+,"PIN code":"PIN code",
+"Something Wrong,Try agian later":"Something Wrong,Try agian later",
+"edit":"Post Editing",
+"Confirmation":"Confirmation",
+"you sure you want to delete account":"you sure you want to delete account"
+,"Save":"Save",
+"Check Again":"Check Again",
+"No Internet":"No Internet",
+"Do you want to delete this post":"Do you want to delete this post"
+,"I already have account":"I already have account",
+"Choose Your Gender":"Choose Your Gender",
+"Personal Information":"Personal Information"
+
+
+
+   
+
+}
