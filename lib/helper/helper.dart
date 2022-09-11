@@ -13,20 +13,38 @@ import '../models/User.dart';
 import '../models/news_model.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 class FireStoreHelper {
+  UserMdoel? _userMdoel;
+
+ void SetUserModel(UserMdoel userMdoel) {
+  _userMdoel = userMdoel;
+
+ }
   FireStoreHelper._();
   static FireStoreHelper fireStoreHelper = FireStoreHelper._();
 
-  addtofirestore(News_model news_model) {
+  addtofirestore(News_model news_model, File b) async{
+     DateTime f =  DateTime.now();
+     news_model.dateTime = f;
+ final ref = await FirebaseStorage.instance.ref().child("PostImgs").child(f.toString());
+await   ref.putFile(b).whenComplete(() async{
+   
+   });
+ final url = await  ref.getDownloadURL();
+
+      
+
+
     final userid = FirebaseAuth.instance.currentUser!.uid;
-    DateTime f =  DateTime.now();
+   
     FirebaseFirestore.instance.collection("news").doc(f.toString()).set({
       
       'id' : f.toString(),
       'isfavo':news_model.isfavo,
       'title': news_model.title,
       'desc': news_model.desc,
-      'imgurl': news_model.imgurl,
+      'imgurl': url,
       'datetime':news_model.dateTime!.toString(),
+      
 
     });
    
@@ -35,7 +53,7 @@ class FireStoreHelper {
       'isfavo':news_model.isfavo,
       'title': news_model.title,
       'desc': news_model.desc,
-      'imgurl': news_model.imgurl,
+      'imgurl': url,
       'datetime':news_model.dateTime!.toString(),
 
     });

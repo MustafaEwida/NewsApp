@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:newsapp/helper/helper.dart';
 import 'package:newsapp/helper/nav.dart';
 import 'package:newsapp/providers/Main_provider.dart';
+import 'package:newsapp/providers/themeprovider.dart';
 import 'package:provider/provider.dart';
 import 'package:theme_provider/theme_provider.dart';
 
@@ -22,14 +23,14 @@ class ProNews extends StatefulWidget {
 class _News_WidgetState extends State<ProNews> {
   @override
   Widget build(BuildContext context) {
-
+print(widget.news_model.imgurl);
     return Consumer<Main_provider>(builder: ((context, value, child) {
      return Container(
 
       height: 310,
 
        decoration:  BoxDecoration(
-         color: ThemeProvider.controllerOf(context).currentThemeId=='default_dark_theme'?Color.fromARGB(255, 124, 124, 124):Colors.white,
+         color: Provider.of<Theme_Provider>(context).Themedata==ThemeData.dark()?Color.fromARGB(255, 124, 124, 124):Colors.white,
          boxShadow: <BoxShadow>[
                       BoxShadow(
                           color: Colors.black54,

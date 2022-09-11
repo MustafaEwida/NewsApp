@@ -2,7 +2,7 @@ import 'dart:io';
 
 class News_model {
   String? username;
-  File? userimg;
+  String? userimg;
  String? id;
  String title;
  String desc;

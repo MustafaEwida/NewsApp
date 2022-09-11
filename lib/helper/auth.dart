@@ -43,7 +43,7 @@ sign_up(UserMdoel usermdoel)async{
 
 try {
  final cred = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: usermdoel.email!, password: usermdoel.password!);
-user = cred.user;
+
 //userMdoel = usermdoel;
 
 //userMdoel!.id = cred.user!.uid;

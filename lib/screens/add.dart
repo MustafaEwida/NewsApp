@@ -1,7 +1,12 @@
+
+
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:newsapp/helper/helper.dart';
 import 'package:newsapp/providers/Main_provider.dart';
 import 'package:newsapp/screens/internet.dart';
@@ -18,6 +23,7 @@ class EditProductScreen extends StatefulWidget {
 }
 
 class _EditProductScreenState extends State<EditProductScreen> {
+  File? b ;
 bool edit = false;
   final _descriptionFocusNode = FocusNode();
   final _imageUrlController = TextEditingController();
@@ -35,7 +41,38 @@ bool edit = false;
     'imgurl': '',
   };
   var _isInit = true;
+   pickimg(){
+final imgpicker =  ImagePicker();
+showDialog(context: context, builder: (ctx){
+   return AlertDialog(
+   title: Text("Pick Image From:").tr(),
+   actions: [
+    ElevatedButton.icon(onPressed: (() async{
+  final img= await imgpicker.pickImage(source: ImageSource.camera,imageQuality: 99,maxWidth: 740);
+setState(() {
+    b = File(img!.path);
+});
+  Navigator.of(ctx).pop();
+ 
+    }), icon: Icon(Icons.camera), label:Text("Camera").tr()),
+     ElevatedButton.icon(onPressed: (() async{
+     final img= await imgpicker.pickImage(source: ImageSource.gallery,imageQuality: 99,maxWidth: 740);
+  setState(() {
+      b = File(img!.path);
+  });
+     Navigator.of(ctx).pop();
+    }), icon: Icon(Icons.image), label:Text("gallry").tr()),
+   ],
 
+
+
+   );
+
+});
+
+
+
+ }
   @override
   void initState() {
     Provider.of<Main_provider>(context,listen: false).checkinternet();
@@ -106,6 +143,11 @@ Future<void> getdoc(String newsId)async{
 
   void _saveForm() {
     final isValid = _form.currentState!.validate();
+
+if(b==null){
+  return;
+}
+
     if (!isValid) {
       return;
     }
@@ -113,7 +155,10 @@ Future<void> getdoc(String newsId)async{
     if (news_model.id != null) {
      FireStoreHelper.fireStoreHelper.update(news_model.id!, news_model);
     } else {
-      Provider.of<Main_provider>(context, listen: false).addnews(news_model);
+ 
+
+
+      Provider.of<Main_provider>(context, listen: false).addnews(news_model,b!);
     }
     Navigator.of(context).pop();
   }
@@ -180,7 +225,48 @@ Provider.of<Main_provider>(context);
                         news_model.desc = value!;
                       },
                     ),
-                    Row(
+ Container(
+                       
+                          height: 220.h,
+                          margin: EdgeInsets.only(
+                            top: 20.h,
+                            right: 10.w,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1.w,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: b==null
+                              ? Text("imgurl").tr()
+                              : FittedBox(
+                                  child: Image.file(
+                               b!,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                        ),
+                         Container(
+                     
+                      margin: EdgeInsets.only(top: 20.h,right: 50.w,left: 50.w),
+                      child: ElevatedButton(
+style:  ElevatedButton.styleFrom(
+  
+  shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.r),
+                          ),
+          onPrimary: Colors.white ,
+               padding: EdgeInsets.all(10.sp),
+               minimumSize: Size(0, 0),
+               elevation: 8,),
+          onPressed: pickimg, child: Text("attach picture",style: TextStyle(fontSize: 20.sp),).tr()),
+                    ),
+
+
+
+
+                  /*  Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         Container(
@@ -240,7 +326,7 @@ Provider.of<Main_provider>(context);
                         ),
                           
                       ],
-                    ), Container(
+                    ),*/ Container(
                       margin: EdgeInsets.only(top: 20.h),
                       child: ElevatedButton(
 style:  ElevatedButton.styleFrom(
@@ -249,7 +335,7 @@ style:  ElevatedButton.styleFrom(
                             borderRadius: BorderRadius.circular(50.r),
                           ),
           onPrimary: Colors.white ,
-               padding: EdgeInsets.all(20.sp),
+               padding: EdgeInsets.all(10.sp),
                minimumSize: Size(0, 0),
                elevation: 8,),
           onPressed: _saveForm, child: Text("Save",style: TextStyle(fontSize: 20.sp),).tr()),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -153,8 +154,8 @@ final checker = InternetConnectionChecker.createInstance(checkInterval: Duration
     });
   }
 
-  addnews(News_model news_model) {
-    FireStoreHelper.fireStoreHelper.addtofirestore(news_model);
+  addnews(News_model news_model,File b) {
+    FireStoreHelper.fireStoreHelper.addtofirestore(news_model,b);
     news.insert(0, news_model);
 
     notifyListeners();

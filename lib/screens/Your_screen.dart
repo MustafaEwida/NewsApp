@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../models/news_model.dart';
 import '../widgets/newswidget.dart';
-import '../widgets/pronews.dart';
+import '../widgets/Yournews.dart';
 
 class Yours_Screen extends StatelessWidget {
 

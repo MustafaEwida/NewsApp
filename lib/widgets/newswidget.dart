@@ -51,6 +51,16 @@ var tag = Localizations.maybeLocaleOf(context)?.toLanguageTag();
  child: Column(
   crossAxisAlignment: CrossAxisAlignment.start,
 children: [
+
+
+Row(children: [
+//CircleAvatar(backgroundImage: NetworkImage(widget.news_model.userimg),)
+
+
+
+
+],)
+  ,
  Container(
 
   margin: EdgeInsets.only(bottom: 10.h),
